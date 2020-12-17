@@ -15,7 +15,70 @@ class _HomeState extends State<Home> {
       body: Stack(
         children: [
           AppBar(),
+          HamburgerMenu(),
         ],
+      ),
+    );
+  }
+}
+
+class HamburgerMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topRight,
+      child: Container(
+        width: 85,
+        height: 180,
+        child: Column(
+          children: [
+            Container(
+              width: 85,
+              height: 90,
+              color: Colors.pinkAccent,
+              child: Center(
+                child: IconButton(
+                    icon: Icon(
+                      Icons.menu_sharp,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                    onPressed: () {}),
+              ),
+            ),
+            // todo : check here u can use visibility widget
+            Container(
+              width: 85,
+              height: 90,
+              decoration: BoxDecoration(
+                color: Colors.pink,
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(40)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Sat',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 0.3),
+                  ),
+                  Text(
+                    '03',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.3),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -41,15 +104,16 @@ class AppBar extends StatelessWidget {
               height: 40,
               width: 40,
             ),
-            SizedBox(width: 10,),
+            SizedBox(
+              width: 10,
+            ),
             Text(
               'What to wear',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.3
-              ),
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.3),
             ),
           ],
         ),
