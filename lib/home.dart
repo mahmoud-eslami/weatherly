@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -28,7 +30,29 @@ class AppBar extends StatelessWidget {
       height: 110,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60)),
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        child: Row(
+          children: [
+            Image.asset(
+              'assets/images/cloud_sun.png',
+              height: 40,
+              width: 40,
+            ),
+            SizedBox(width: 10,),
+            Text(
+              'What to wear',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.3
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
