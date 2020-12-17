@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +15,63 @@ class _HomeState extends State<Home> {
         children: [
           AppBar(),
           HamburgerMenu(),
+          ClosedBottomSheet(),
         ],
+      ),
+    );
+  }
+}
+
+class ClosedBottomSheet extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: size.width,
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(50),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.access_time,
+                  color: Colors.amber,
+                ),
+                onPressed: () {},
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(
+                  'Today\'s changes',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.3),
+                ),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.calendar_today_outlined,
+                  color: Colors.pink,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
