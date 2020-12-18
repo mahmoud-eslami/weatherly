@@ -19,14 +19,15 @@ class _HomeState extends State<Home> {
     // initialize home dims
     _homeDimsModel = HomeDimsModel(
       appBarHeight: 110,
-      appBarTitleFontSize: 24,
-      appBarIconSize: 40,
+      appBarTitleFontSize: 27,
+      appBarIconSize: 50,
       hamburgerMenuHeight: 90,
       hamburgerMenuTileRadius: 0,
       dateTimeHeight: 90,
       dateTileRadius: 40,
       bottomSheetHeight: 80,
       showCalenderIconInBottomSheet: true,
+      hamburgerMenuSpaceHeight: 90,
     );
 
     // initialize home bloc
@@ -59,6 +60,7 @@ class _HomeState extends State<Home> {
                 titleFontSize: _homeDimsModel.appBarTitleFontSize,
               ),
               HamburgerMenu(
+                spaceHeight: _homeDimsModel.hamburgerMenuSpaceHeight,
                 hamburgerMenuHeight: _homeDimsModel.hamburgerMenuHeight,
                 hamburgerMenuTileRadius: _homeDimsModel.hamburgerMenuTileRadius,
                 dateTileRadius: _homeDimsModel.dateTileRadius,
@@ -96,10 +98,12 @@ class BottomSheet extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
         onVerticalDragDown: (value) {
-          if (height > 80.0) {}
+          if (height > 200.0) {
+            homeCubit.bottomSheetListener(isOpenBar: calenderIcon);
+          }
         },
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 1100),
+          duration: Duration(milliseconds: 800),
           curve: Curves.fastOutSlowIn,
           width: size.width,
           height: height,
@@ -122,7 +126,7 @@ class BottomSheet extends StatelessWidget {
                       color: Colors.amber,
                     ),
                     onPressed: () {
-                      homeCubit.openBottomSheet(isOpenBar: calenderIcon);
+                      homeCubit.bottomSheetListener(isOpenBar: calenderIcon);
                     },
                   ),
                   SizedBox(
@@ -164,7 +168,8 @@ class HamburgerMenu extends StatelessWidget {
   final double hamburgerMenuHeight,
       hamburgerMenuTileRadius,
       dateTimeHeight,
-      dateTileRadius;
+      dateTileRadius,
+      spaceHeight;
 
   const HamburgerMenu({
     Key key,
@@ -172,18 +177,73 @@ class HamburgerMenu extends StatelessWidget {
     @required this.hamburgerMenuTileRadius,
     @required this.dateTimeHeight,
     @required this.dateTileRadius,
+    @required this.spaceHeight,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topRight,
-      child: Column(
+      child: Stack(
         children: [
-          Container(
-            width: 85,
-            height: 90,
-            color: Colors.pinkAccent,
+          Column(
+            children: [
+              AnimatedContainer(
+                duration: Duration(milliseconds: 600),
+                width: 70,
+                height: spaceHeight,
+                decoration: BoxDecoration(
+                  color: Colors.pinkAccent,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(hamburgerMenuTileRadius)),
+                ),
+              ),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 600),
+                width: 70,
+                height: dateTimeHeight,
+                decoration: BoxDecoration(
+                  color: Colors.pink,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(dateTileRadius)),
+                ),
+                child: Center(
+                  child: Wrap(
+                    direction: Axis.vertical,
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        'Sat',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            letterSpacing: 0.3),
+                      ),
+                      Text(
+                        '03',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.3),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          AnimatedContainer(
+            duration: Duration(milliseconds: 600),
+            width: 70,
+            height: hamburgerMenuHeight,
+            decoration: BoxDecoration(
+              color: Colors.pinkAccent,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(hamburgerMenuTileRadius)),
+            ),
             child: Center(
               child: IconButton(
                   icon: Icon(
@@ -192,36 +252,6 @@ class HamburgerMenu extends StatelessWidget {
                     size: 30,
                   ),
                   onPressed: () {}),
-            ),
-          ),
-          // todo : check here u can use visibility widget
-          Container(
-            width: 85,
-            height: 90,
-            decoration: BoxDecoration(
-              color: Colors.pink,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Sat',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 0.3),
-                ),
-                Text(
-                  '03',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.3),
-                ),
-              ],
             ),
           ),
         ],
@@ -244,7 +274,7 @@ class AppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AnimatedContainer(
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 800),
       width: size.width,
       height: height,
       decoration: BoxDecoration(
@@ -255,21 +285,27 @@ class AppBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: Row(
           children: [
-            Image.asset(
-              'assets/images/cloud_sun.png',
+            AnimatedContainer(
+              duration: Duration(milliseconds: 800),
               height: iconSize,
               width: iconSize,
+              child: Image.asset(
+                'assets/images/cloud_sun.png',
+              ),
             ),
             SizedBox(
               width: 10,
             ),
-            Text(
-              'What to wear',
+            AnimatedDefaultTextStyle(
+              duration: Duration(milliseconds: 800),
               style: TextStyle(
                   color: Colors.black,
                   fontSize: titleFontSize,
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.3),
+              child: Text(
+                'What to wear',
+              ),
             ),
           ],
         ),

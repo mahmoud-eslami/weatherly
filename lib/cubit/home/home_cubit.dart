@@ -8,20 +8,21 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
-  Future<void> openBottomSheet({@required bool isOpenBar}) async {
+  Future<void> bottomSheetListener({@required bool isOpenBar}) async {
     if (isOpenBar) {
       emit(
         BottomSheetOpened(
           homeDimsModel: HomeDimsModel(
-            appBarHeight: 90,
+            appBarHeight: 80,
             appBarTitleFontSize: 20,
             appBarIconSize: 30,
-            hamburgerMenuHeight: 90,
+            hamburgerMenuHeight: 110,
             hamburgerMenuTileRadius: 40,
-            dateTimeHeight: 90,
+            dateTimeHeight: 0,
             dateTileRadius: 40,
             bottomSheetHeight: 500,
             showCalenderIconInBottomSheet: false,
+            hamburgerMenuSpaceHeight: 0,
           ),
         ),
       );
@@ -29,15 +30,16 @@ class HomeCubit extends Cubit<HomeState> {
       emit(
         BottomSheetOpened(
           homeDimsModel: HomeDimsModel(
-            appBarHeight: 110,
-            appBarTitleFontSize: 24,
-            appBarIconSize: 40,
+            appBarHeight: 120,
+            appBarTitleFontSize: 27,
+            appBarIconSize: 50,
             hamburgerMenuHeight: 90,
             hamburgerMenuTileRadius: 0,
             dateTimeHeight: 90,
             dateTileRadius: 40,
             bottomSheetHeight: 80,
             showCalenderIconInBottomSheet: true,
+            hamburgerMenuSpaceHeight: 90,
           ),
         ),
       );

@@ -5,7 +5,8 @@ class HomeDimsModel {
   double hamburgerMenuHeight,
       hamburgerMenuTileRadius,
       dateTimeHeight,
-      dateTileRadius;
+      dateTileRadius,
+      hamburgerMenuSpaceHeight;
   double bottomSheetHeight;
   bool showCalenderIconInBottomSheet;
 
@@ -19,5 +20,6 @@ class HomeDimsModel {
     @required this.dateTileRadius,
     @required this.bottomSheetHeight,
     @required this.showCalenderIconInBottomSheet,
+    @required this.hamburgerMenuSpaceHeight,
   });
 }
