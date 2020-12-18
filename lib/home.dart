@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -54,6 +55,7 @@ class _HomeState extends State<Home> {
           }
           return Stack(
             children: [
+              HomeBodyWidget(),
               AppBar(
                 height: _homeDimsModel.appBarHeight,
                 iconSize: _homeDimsModel.appBarIconSize,
@@ -74,6 +76,72 @@ class _HomeState extends State<Home> {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class HomeBodyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 160,
+              ),
+              Text(
+                '19°',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 60,
+                    fontWeight: FontWeight.w200),
+              ),
+              Text(
+                'Feels like 17°',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Image.asset(
+                'assets/images/rainy.png',
+                width: 40,
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: 0,
+                ),
+              ),
+              Text(
+                'Naples',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w200),
+              ),
+              SizedBox(
+                height: 100,
+              ),
+            ],
+          ),
+          Expanded(
+            child:Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(pi),
+              child: Image.asset(
+                'assets/images/woman.png',
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
