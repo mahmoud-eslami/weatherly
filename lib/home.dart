@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -15,61 +17,97 @@ class _HomeState extends State<Home> {
         children: [
           AppBar(),
           HamburgerMenu(),
-          ClosedBottomSheet(),
+          BottomSheet(),
         ],
       ),
     );
   }
 }
 
-class ClosedBottomSheet extends StatelessWidget {
+class BottomSheet extends StatefulWidget {
+  @override
+  _BottomSheetState createState() => _BottomSheetState();
+}
+
+class _BottomSheetState extends State<BottomSheet> {
+  var bottomSheetHeight;
+
+  @override
+  void initState() {
+    bottomSheetHeight = 80.0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Align(
       alignment: Alignment.bottomCenter,
-      child: Container(
-        width: size.width,
-        height: 80,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(50),
+      child: GestureDetector(
+        onVerticalDragDown: (value) {
+          if (bottomSheetHeight > 80.0) {
+            setState(() {
+              bottomSheetHeight = 80.0;
+            });
+          }
+        },
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 1100),
+          curve: Curves.fastOutSlowIn,
+          width: size.width,
+          height: bottomSheetHeight,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(50),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.access_time,
-                  color: Colors.amber,
-                ),
-                onPressed: () {},
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.access_time,
+                      color: Colors.amber,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        bottomSheetHeight = 520.0;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Today\'s changes',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.3),
+                    ),
+                  ),
+                  // todo : add opacity animation to this part
+                  Visibility(
+                    visible: !(bottomSheetHeight > 90),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.calendar_today_outlined,
+                        color: Colors.pink,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(
-                  'Today\'s changes',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.3),
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.calendar_today_outlined,
-                  color: Colors.pink,
-                ),
-                onPressed: () {},
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -143,7 +181,8 @@ class AppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(seconds: 1),
       width: size.width,
       height: 110,
       decoration: BoxDecoration(
