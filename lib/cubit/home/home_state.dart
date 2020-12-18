@@ -10,15 +10,24 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 class BottomSheetOpened extends HomeState {
-  final bool openOpt;
+  final double appBarHeight, appBarTitleFontSize, appBarIconSize;
+  final double hamburgerMenuHeight,
+      hamburgerMenuTileRadius,
+      dateTimeHeight,
+      dateTileRadius;
+  final double bottomSheetHeight;
+  final bool showCalenderIconInBottomSheet, openOpt;
 
-  BottomSheetOpened({@required this.openOpt});
-
-  @override
-  List<Object> get props => [openOpt];
-
-  @override
-  String toString() {
-    return 'BottomSheetOpened{openOpt: $openOpt}';
-  }
+  BottomSheetOpened({
+    @required this.appBarHeight,
+    @required this.appBarTitleFontSize,
+    @required this.appBarIconSize,
+    @required this.hamburgerMenuHeight,
+    @required this.hamburgerMenuTileRadius,
+    @required this.dateTimeHeight,
+    @required this.dateTileRadius,
+    @required this.bottomSheetHeight,
+    @required this.showCalenderIconInBottomSheet,
+    @required this.openOpt,
+  });
 }

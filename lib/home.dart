@@ -11,9 +11,32 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   HomeCubit _homeCubit;
+  double appBarHeight, appBarTitleFontSize, appBarIconSize;
+  double hamburgerMenuHeight,
+      hamburgerMenuTileRadius,
+      dateTimeHeight,
+      dateTileRadius;
+  double bottomSheetHeight;
+  bool showCalenderIconInBottomSheet;
 
   @override
   void initState() {
+    // bottomSheet
+    bottomSheetHeight = 80;
+    showCalenderIconInBottomSheet = true;
+
+    // hamburgerMenu
+    hamburgerMenuHeight = 90;
+    hamburgerMenuTileRadius = 0;
+    dateTimeHeight = 90;
+    dateTileRadius = 40;
+
+    // appBar
+    appBarHeight = 110;
+    appBarTitleFontSize = 24;
+    appBarIconSize = 40;
+
+    // initialize home bloc
     _homeCubit = HomeCubit();
     super.initState();
   }
@@ -34,9 +57,21 @@ class _HomeState extends State<Home> {
         builder: (context, state) {
           return Stack(
             children: [
-              AppBar(),
-              HamburgerMenu(),
-              BottomSheet(),
+              AppBar(
+                height: appBarHeight,
+                iconSize: appBarIconSize,
+                titleFontSize: appBarTitleFontSize,
+              ),
+              HamburgerMenu(
+                hamburgerMenuHeight: hamburgerMenuHeight,
+                hamburgerMenuTileRadius: hamburgerMenuTileRadius,
+                dateTileRadius: dateTileRadius,
+                dateTimeHeight: dateTimeHeight,
+              ),
+              BottomSheet(
+                height: bottomSheetHeight,
+                calenderIcon: showCalenderIconInBottomSheet,
+              ),
             ],
           );
         },
@@ -45,19 +80,15 @@ class _HomeState extends State<Home> {
   }
 }
 
-class BottomSheet extends StatefulWidget {
-  @override
-  _BottomSheetState createState() => _BottomSheetState();
-}
+class BottomSheet extends StatelessWidget {
+  final double height;
+  final bool calenderIcon;
 
-class _BottomSheetState extends State<BottomSheet> {
-  var bottomSheetHeight;
-
-  @override
-  void initState() {
-    bottomSheetHeight = 80.0;
-    super.initState();
-  }
+  const BottomSheet({
+    Key key,
+    @required this.height,
+    @required this.calenderIcon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +97,13 @@ class _BottomSheetState extends State<BottomSheet> {
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
         onVerticalDragDown: (value) {
-          if (bottomSheetHeight > 80.0) {
-            setState(() {
-              bottomSheetHeight = 80.0;
-            });
-          }
+          if (height > 80.0) {}
         },
         child: AnimatedContainer(
           duration: Duration(milliseconds: 1100),
           curve: Curves.fastOutSlowIn,
           width: size.width,
-          height: bottomSheetHeight,
+          height: height,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(
@@ -95,11 +122,7 @@ class _BottomSheetState extends State<BottomSheet> {
                       Icons.access_time,
                       color: Colors.amber,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        bottomSheetHeight = 520.0;
-                      });
-                    },
+                    onPressed: () {},
                   ),
                   SizedBox(
                     width: 10,
@@ -117,7 +140,7 @@ class _BottomSheetState extends State<BottomSheet> {
                   ),
                   // todo : add opacity animation to this part
                   Visibility(
-                    visible: !(bottomSheetHeight > 90),
+                    visible: calenderIcon,
                     child: IconButton(
                       icon: Icon(
                         Icons.calendar_today_outlined,
@@ -137,75 +160,92 @@ class _BottomSheetState extends State<BottomSheet> {
 }
 
 class HamburgerMenu extends StatelessWidget {
+  final double hamburgerMenuHeight,
+      hamburgerMenuTileRadius,
+      dateTimeHeight,
+      dateTileRadius;
+
+  const HamburgerMenu({
+    Key key,
+    @required this.hamburgerMenuHeight,
+    @required this.hamburgerMenuTileRadius,
+    @required this.dateTimeHeight,
+    @required this.dateTileRadius,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topRight,
-      child: Container(
-        width: 85,
-        height: 180,
-        child: Column(
-          children: [
-            Container(
-              width: 85,
-              height: 90,
-              color: Colors.pinkAccent,
-              child: Center(
-                child: IconButton(
-                    icon: Icon(
-                      Icons.menu_sharp,
+      child: Column(
+        children: [
+          Container(
+            width: 85,
+            height: 90,
+            color: Colors.pinkAccent,
+            child: Center(
+              child: IconButton(
+                  icon: Icon(
+                    Icons.menu_sharp,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                  onPressed: () {}),
+            ),
+          ),
+          // todo : check here u can use visibility widget
+          Container(
+            width: 85,
+            height: 90,
+            decoration: BoxDecoration(
+              color: Colors.pink,
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Sat',
+                  style: TextStyle(
                       color: Colors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {}),
-              ),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 0.3),
+                ),
+                Text(
+                  '03',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.3),
+                ),
+              ],
             ),
-            // todo : check here u can use visibility widget
-            Container(
-              width: 85,
-              height: 90,
-              decoration: BoxDecoration(
-                color: Colors.pink,
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(40)),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Sat',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 0.3),
-                  ),
-                  Text(
-                    '03',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.3),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class AppBar extends StatelessWidget {
+  final double height, iconSize, titleFontSize;
+
+  const AppBar({
+    Key key,
+    @required this.height,
+    @required this.iconSize,
+    @required this.titleFontSize,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AnimatedContainer(
       duration: Duration(seconds: 1),
       width: size.width,
-      height: 110,
+      height: height,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
@@ -216,8 +256,8 @@ class AppBar extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/cloud_sun.png',
-              height: 40,
-              width: 40,
+              height: iconSize,
+              width: iconSize,
             ),
             SizedBox(
               width: 10,
@@ -226,7 +266,7 @@ class AppBar extends StatelessWidget {
               'What to wear',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 24,
+                  fontSize: titleFontSize,
                   fontWeight: FontWeight.w400,
                   letterSpacing: 0.3),
             ),
