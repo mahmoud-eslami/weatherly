@@ -1,7 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherly/cubit/home/home_cubit.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,16 +10,36 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  HomeCubit _homeCubit;
+
+  @override
+  void initState() {
+    _homeCubit = HomeCubit();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _homeCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.deepPurple,
-      body: Stack(
-        children: [
-          AppBar(),
-          HamburgerMenu(),
-          BottomSheet(),
-        ],
+      body: BlocConsumer(
+        cubit: _homeCubit,
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Stack(
+            children: [
+              AppBar(),
+              HamburgerMenu(),
+              BottomSheet(),
+            ],
+          );
+        },
       ),
     );
   }
