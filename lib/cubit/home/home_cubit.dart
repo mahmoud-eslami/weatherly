@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:weatherly/home_dims_model.dart';
 
 part 'home_state.dart';
 
@@ -11,29 +12,33 @@ class HomeCubit extends Cubit<HomeState> {
     if (isOpenBar) {
       emit(
         BottomSheetOpened(
-          appBarHeight: 90,
-          appBarTitleFontSize: 20,
-          appBarIconSize: 30,
-          hamburgerMenuHeight: 90,
-          hamburgerMenuTileRadius: 40,
-          dateTimeHeight: 90,
-          dateTileRadius: 40,
-          bottomSheetHeight: 500,
-          showCalenderIconInBottomSheet: false,
+          homeDimsModel: HomeDimsModel(
+            appBarHeight: 90,
+            appBarTitleFontSize: 20,
+            appBarIconSize: 30,
+            hamburgerMenuHeight: 90,
+            hamburgerMenuTileRadius: 40,
+            dateTimeHeight: 90,
+            dateTileRadius: 40,
+            bottomSheetHeight: 500,
+            showCalenderIconInBottomSheet: false,
+          ),
         ),
       );
     } else {
       emit(
         BottomSheetOpened(
-          appBarHeight: 110,
-          appBarTitleFontSize: 24,
-          appBarIconSize: 40,
-          hamburgerMenuHeight: 90,
-          hamburgerMenuTileRadius: 0,
-          dateTimeHeight: 90,
-          dateTileRadius: 40,
-          bottomSheetHeight: 80,
-          showCalenderIconInBottomSheet: true,
+          homeDimsModel: HomeDimsModel(
+            appBarHeight: 110,
+            appBarTitleFontSize: 24,
+            appBarIconSize: 40,
+            hamburgerMenuHeight: 90,
+            hamburgerMenuTileRadius: 0,
+            dateTimeHeight: 90,
+            dateTileRadius: 40,
+            bottomSheetHeight: 80,
+            showCalenderIconInBottomSheet: true,
+          ),
         ),
       );
     }

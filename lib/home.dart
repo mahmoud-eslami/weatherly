@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherly/cubit/home/home_cubit.dart';
+import 'package:weatherly/home_dims_model.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,30 +12,22 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   HomeCubit _homeCubit;
-  double appBarHeight, appBarTitleFontSize, appBarIconSize;
-  double hamburgerMenuHeight,
-      hamburgerMenuTileRadius,
-      dateTimeHeight,
-      dateTileRadius;
-  double bottomSheetHeight;
-  bool showCalenderIconInBottomSheet;
+  HomeDimsModel _homeDimsModel;
 
   @override
   void initState() {
-    // bottomSheet
-    bottomSheetHeight = 80;
-    showCalenderIconInBottomSheet = true;
-
-    // hamburgerMenu
-    hamburgerMenuHeight = 90;
-    hamburgerMenuTileRadius = 0;
-    dateTimeHeight = 90;
-    dateTileRadius = 40;
-
-    // appBar
-    appBarHeight = 110;
-    appBarTitleFontSize = 24;
-    appBarIconSize = 40;
+    // initialize home dims
+    _homeDimsModel = HomeDimsModel(
+      appBarHeight: 110,
+      appBarTitleFontSize: 24,
+      appBarIconSize: 40,
+      hamburgerMenuHeight: 90,
+      hamburgerMenuTileRadius: 0,
+      dateTimeHeight: 90,
+      dateTileRadius: 40,
+      bottomSheetHeight: 80,
+      showCalenderIconInBottomSheet: true,
+    );
 
     // initialize home bloc
     _homeCubit = HomeCubit();
@@ -56,38 +49,25 @@ class _HomeState extends State<Home> {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is BottomSheetOpened) {
-            // bottomSheet
-            bottomSheetHeight = state.bottomSheetHeight;
-            showCalenderIconInBottomSheet = state.showCalenderIconInBottomSheet;
-
-            // hamburgerMenu
-            hamburgerMenuHeight = state.hamburgerMenuHeight;
-            hamburgerMenuTileRadius = state.hamburgerMenuTileRadius;
-            dateTimeHeight = state.dateTimeHeight;
-            dateTileRadius = state.dateTileRadius;
-
-            // appBar
-            appBarHeight = state.appBarHeight;
-            appBarTitleFontSize = state.appBarTitleFontSize;
-            appBarIconSize = state.appBarIconSize;
+            _homeDimsModel = state.homeDimsModel;
           }
           return Stack(
             children: [
               AppBar(
-                height: appBarHeight,
-                iconSize: appBarIconSize,
-                titleFontSize: appBarTitleFontSize,
+                height: _homeDimsModel.appBarHeight,
+                iconSize: _homeDimsModel.appBarIconSize,
+                titleFontSize: _homeDimsModel.appBarTitleFontSize,
               ),
               HamburgerMenu(
-                hamburgerMenuHeight: hamburgerMenuHeight,
-                hamburgerMenuTileRadius: hamburgerMenuTileRadius,
-                dateTileRadius: dateTileRadius,
-                dateTimeHeight: dateTimeHeight,
+                hamburgerMenuHeight: _homeDimsModel.hamburgerMenuHeight,
+                hamburgerMenuTileRadius: _homeDimsModel.hamburgerMenuTileRadius,
+                dateTileRadius: _homeDimsModel.dateTileRadius,
+                dateTimeHeight: _homeDimsModel.dateTimeHeight,
               ),
               BottomSheet(
                 homeCubit: _homeCubit,
-                height: bottomSheetHeight,
-                calenderIcon: showCalenderIconInBottomSheet,
+                height: _homeDimsModel.bottomSheetHeight,
+                calenderIcon: _homeDimsModel.showCalenderIconInBottomSheet,
               ),
             ],
           );
@@ -167,8 +147,7 @@ class BottomSheet extends StatelessWidget {
                         Icons.calendar_today_outlined,
                         color: Colors.pink,
                       ),
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                     ),
                   ),
                 ],

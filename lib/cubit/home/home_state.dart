@@ -10,49 +10,15 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 class BottomSheetOpened extends HomeState {
-  final double appBarHeight, appBarTitleFontSize, appBarIconSize;
-  final double hamburgerMenuHeight,
-      hamburgerMenuTileRadius,
-      dateTimeHeight,
-      dateTileRadius;
-  final double bottomSheetHeight;
-  final bool showCalenderIconInBottomSheet;
+  final HomeDimsModel homeDimsModel;
 
-  BottomSheetOpened({
-    @required this.appBarHeight,
-    @required this.appBarTitleFontSize,
-    @required this.appBarIconSize,
-    @required this.hamburgerMenuHeight,
-    @required this.hamburgerMenuTileRadius,
-    @required this.dateTimeHeight,
-    @required this.dateTileRadius,
-    @required this.bottomSheetHeight,
-    @required this.showCalenderIconInBottomSheet,
-  });
-
-  @override
-  List<Object> get props => [
-        appBarHeight,
-        appBarTitleFontSize,
-        appBarIconSize,
-        hamburgerMenuHeight,
-        hamburgerMenuTileRadius,
-        dateTimeHeight,
-        dateTileRadius,
-        bottomSheetHeight,
-        showCalenderIconInBottomSheet
-      ];
+  BottomSheetOpened({@required this.homeDimsModel});
 
   @override
   String toString() {
-    return 'BottomSheetOpened{appBarHeight: $appBarHeight,'
-        ' appBarTitleFontSize: $appBarTitleFontSize,'
-        ' appBarIconSize: $appBarIconSize,'
-        ' hamburgerMenuHeight: $hamburgerMenuHeight,'
-        ' hamburgerMenuTileRadius: $hamburgerMenuTileRadius,'
-        ' dateTimeHeight: $dateTimeHeight,'
-        ' dateTileRadius: $dateTileRadius,'
-        ' bottomSheetHeight: $bottomSheetHeight,'
-        ' showCalenderIconInBottomSheet: $showCalenderIconInBottomSheet}';
+    return 'BottomSheetOpened{homeDimsModel: $homeDimsModel}';
   }
+
+  @override
+  List<Object> get props => [homeDimsModel];
 }

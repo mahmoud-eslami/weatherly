@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class HomeDimsModel {
-  final double appBarHeight, appBarTitleFontSize, appBarIconSize;
-  final double hamburgerMenuHeight,
+  double appBarHeight, appBarTitleFontSize, appBarIconSize;
+  double hamburgerMenuHeight,
       hamburgerMenuTileRadius,
       dateTimeHeight,
       dateTileRadius;
-  final double bottomSheetHeight;
-  final bool showCalenderIconInBottomSheet;
+  double bottomSheetHeight;
+  bool showCalenderIconInBottomSheet;
 
   HomeDimsModel({
     @required this.appBarHeight,
