@@ -55,6 +55,22 @@ class _HomeState extends State<Home> {
         cubit: _homeCubit,
         listener: (context, state) {},
         builder: (context, state) {
+          if (state is BottomSheetOpened) {
+            // bottomSheet
+            bottomSheetHeight = state.bottomSheetHeight;
+            showCalenderIconInBottomSheet = state.showCalenderIconInBottomSheet;
+
+            // hamburgerMenu
+            hamburgerMenuHeight = state.hamburgerMenuHeight;
+            hamburgerMenuTileRadius = state.hamburgerMenuTileRadius;
+            dateTimeHeight = state.dateTimeHeight;
+            dateTileRadius = state.dateTileRadius;
+
+            // appBar
+            appBarHeight = state.appBarHeight;
+            appBarTitleFontSize = state.appBarTitleFontSize;
+            appBarIconSize = state.appBarIconSize;
+          }
           return Stack(
             children: [
               AppBar(
@@ -69,6 +85,7 @@ class _HomeState extends State<Home> {
                 dateTimeHeight: dateTimeHeight,
               ),
               BottomSheet(
+                homeCubit: _homeCubit,
                 height: bottomSheetHeight,
                 calenderIcon: showCalenderIconInBottomSheet,
               ),
@@ -83,11 +100,13 @@ class _HomeState extends State<Home> {
 class BottomSheet extends StatelessWidget {
   final double height;
   final bool calenderIcon;
+  final HomeCubit homeCubit;
 
   const BottomSheet({
     Key key,
     @required this.height,
     @required this.calenderIcon,
+    @required this.homeCubit,
   }) : super(key: key);
 
   @override
@@ -122,7 +141,9 @@ class BottomSheet extends StatelessWidget {
                       Icons.access_time,
                       color: Colors.amber,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      homeCubit.openBottomSheet(isOpenBar: calenderIcon);
+                    },
                   ),
                   SizedBox(
                     width: 10,
@@ -146,7 +167,8 @@ class BottomSheet extends StatelessWidget {
                         Icons.calendar_today_outlined,
                         color: Colors.pink,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                     ),
                   ),
                 ],

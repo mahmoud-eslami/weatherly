@@ -16,7 +16,7 @@ class BottomSheetOpened extends HomeState {
       dateTimeHeight,
       dateTileRadius;
   final double bottomSheetHeight;
-  final bool showCalenderIconInBottomSheet, openOpt;
+  final bool showCalenderIconInBottomSheet;
 
   BottomSheetOpened({
     @required this.appBarHeight,
@@ -28,6 +28,31 @@ class BottomSheetOpened extends HomeState {
     @required this.dateTileRadius,
     @required this.bottomSheetHeight,
     @required this.showCalenderIconInBottomSheet,
-    @required this.openOpt,
   });
+
+  @override
+  List<Object> get props => [
+        appBarHeight,
+        appBarTitleFontSize,
+        appBarIconSize,
+        hamburgerMenuHeight,
+        hamburgerMenuTileRadius,
+        dateTimeHeight,
+        dateTileRadius,
+        bottomSheetHeight,
+        showCalenderIconInBottomSheet
+      ];
+
+  @override
+  String toString() {
+    return 'BottomSheetOpened{appBarHeight: $appBarHeight,'
+        ' appBarTitleFontSize: $appBarTitleFontSize,'
+        ' appBarIconSize: $appBarIconSize,'
+        ' hamburgerMenuHeight: $hamburgerMenuHeight,'
+        ' hamburgerMenuTileRadius: $hamburgerMenuTileRadius,'
+        ' dateTimeHeight: $dateTimeHeight,'
+        ' dateTileRadius: $dateTileRadius,'
+        ' bottomSheetHeight: $bottomSheetHeight,'
+        ' showCalenderIconInBottomSheet: $showCalenderIconInBottomSheet}';
+  }
 }
