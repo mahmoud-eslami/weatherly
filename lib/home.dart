@@ -55,7 +55,10 @@ class _HomeState extends State<Home> {
           }
           return Stack(
             children: [
-              HomeBodyWidget(),
+              HomeBodyWidget(
+                homeCubit: _homeCubit,
+                state: _homeDimsModel.showCalenderIconInBottomSheet,
+              ),
               AppBar(
                 height: _homeDimsModel.appBarHeight,
                 iconSize: _homeDimsModel.appBarIconSize,
@@ -82,66 +85,91 @@ class _HomeState extends State<Home> {
 }
 
 class HomeBodyWidget extends StatelessWidget {
+  final HomeCubit homeCubit;
+  final bool state;
+
+  const HomeBodyWidget({
+    Key key,
+    @required this.homeCubit,
+    @required this.state,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(left: 30),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 160,
-              ),
-              Text(
-                '19°',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 60,
-                    fontWeight: FontWeight.w200),
-              ),
-              Text(
-                'Feels like 17°',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Image.asset(
-                'assets/images/rainy.png',
-                width: 40,
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: 0,
-                ),
-              ),
-              Text(
-                'Naples',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w200),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-            ],
-          ),
-          Expanded(
-            child:Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationY(pi),
-              child: Image.asset(
-                'assets/images/woman.png',
+      child: Container(
+        height: size.height,
+        child: Row(
+          children: [
+            SizedBox(
+              height: size.height,
+              width: 140,
+              child: Stack(
+                children: [
+                  AnimatedPositioned(
+                    duration: Duration(milliseconds: 600),
+                    top: (state) ? 180:110,
+                    left: (state) ?0:45,
+                    child: AnimatedDefaultTextStyle(
+                      duration: Duration(milliseconds: 600),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: (state) ? 60 : 50,
+                          fontWeight: FontWeight.w200),
+                      child: Text(
+                        '19°',
+                      ),
+                    ),
+                  ),
+                  AnimatedPositioned(
+                    duration: Duration(milliseconds: 600),
+                    top: 250,
+                    child: Visibility(
+                      visible: state,
+                      child: Text(
+                        'Feels like 17°',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
+                  AnimatedPositioned(
+                    duration: Duration(milliseconds: 600),
+                    top: (state) ? 290:121,
+                    child: Image.asset(
+                      'assets/images/rainy.png',
+                      width: 40,
+                    ),
+                  ),
+                  AnimatedPositioned(
+                    duration: Duration(milliseconds: 600),
+                    top: 540,
+                    child: Text(
+                      'Naples',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.w200),
+                    ),
+                  ),
+                ],
               ),
             ),
-          )
-        ],
+            Expanded(
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.rotationY(pi),
+                child: Image.asset(
+                  'assets/images/woman.png',
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
