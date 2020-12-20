@@ -101,74 +101,71 @@ class HomeBodyWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 30),
       child: Container(
         height: size.height,
-        child: Row(
-          children: [
-            SizedBox(
-              height: size.height,
-              width: 140,
-              child: Stack(
-                children: [
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 600),
-                    top: (state) ? 180:110,
-                    left: (state) ?0:45,
-                    child: AnimatedDefaultTextStyle(
-                      duration: Duration(milliseconds: 600),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: (state) ? 60 : 50,
-                          fontWeight: FontWeight.w200),
-                      child: Text(
-                        '19°',
-                      ),
-                    ),
+        child: SizedBox(
+          height: size.height,
+          width: size.width,
+          child: Stack(
+            children: [
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 600),
+                top: (state) ? 180 : 110,
+                left: (state) ? 0 : 45,
+                child: AnimatedDefaultTextStyle(
+                  duration: Duration(milliseconds: 600),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: (state) ? 60 : 50,
+                      fontWeight: FontWeight.w200),
+                  child: Text(
+                    '19°',
                   ),
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 600),
-                    top: 250,
-                    child: Visibility(
-                      visible: state,
-                      child: Text(
-                        'Feels like 17°',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  ),
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 600),
-                    top: (state) ? 290:121,
-                    child: Image.asset(
-                      'assets/images/rainy.png',
-                      width: 40,
-                    ),
-                  ),
-                  AnimatedPositioned(
-                    duration: Duration(milliseconds: 600),
-                    top: 540,
-                    child: Text(
-                      'Naples',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.w200),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.rotationY(pi),
-                child: Image.asset(
-                  'assets/images/woman.png',
                 ),
               ),
-            )
-          ],
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 600),
+                top: 250,
+                child: Visibility(
+                  visible: state,
+                  child: Text(
+                    'Feels like 17°',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ),
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 600),
+                top: (state) ? 290 : 121,
+                child: Image.asset(
+                  'assets/images/rainy.png',
+                  width: 40,
+                ),
+              ),
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 600),
+                top: 540,
+                child: Text(
+                  'Naples',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.w200),
+                ),
+              ),
+              Positioned(
+                top: 160,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.rotationY(pi),
+                  child: Image.asset(
+                    'assets/images/woman.png',
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
