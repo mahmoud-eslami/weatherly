@@ -22,3 +22,10 @@ class BottomSheetOpened extends HomeState {
   @override
   List<Object> get props => [homeDimsModel];
 }
+
+class BottomNavigationOpened extends HomeState {
+  @override
+  String toString() {
+    return 'BottomNavigationOpened{}';
+  }
+}

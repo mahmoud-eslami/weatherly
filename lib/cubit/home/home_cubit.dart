@@ -9,6 +9,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   Future<void> bottomSheetListener({@required bool isOpenBar}) async {
+    print('clock');
     if (isOpenBar) {
       emit(
         BottomSheetOpened(
@@ -44,5 +45,10 @@ class HomeCubit extends Cubit<HomeState> {
         ),
       );
     }
+  }
+
+  Future<void> bottomNavigationListener() async{
+    print('calender');
+    emit(BottomNavigationOpened());
   }
 }
