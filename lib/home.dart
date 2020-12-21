@@ -84,6 +84,132 @@ class _HomeState extends State<Home> {
   }
 }
 
+class BottomSheetContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        windStatus(),
+        dailyWeatherStatus(),
+      ],
+    );
+  }
+
+  Widget dailyWeatherStatus() {
+    return SizedBox(
+      height: 400,
+      child: Stack(
+        children: [
+          ListView.separated(
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '${index + 10} : 00',
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/images/cloud.png',
+                    width: 30,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text('12°'),
+                ],
+              ),
+            ),
+            separatorBuilder: (context, index) => Container(
+              height: .5,
+              color: Colors.grey,
+            ),
+            itemCount: 8,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: 150,
+                  height: 170,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                      color: Colors.deepPurple),
+                  child: Image.asset(
+                    'assets/images/sit_man.png',
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: 150,
+                  height: 140,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                      color: Colors.amber),
+                  child: Image.asset(
+                    'assets/images/stand_man.png',
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget windStatus() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              'assets/images/cloud.png',
+              width: 50,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Rainy with short\nstorms.'),
+          ],
+        ),
+        Row(
+          children: [
+            Image.asset(
+              'assets/images/wind.png',
+              width: 50,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text('Wind En\n8 km/h'),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class HomeBodyWidget extends StatelessWidget {
   final HomeCubit homeCubit;
   final bool state;
@@ -209,45 +335,54 @@ class BottomSheet extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.access_time,
-                      color: Colors.amber,
+              padding: const EdgeInsets.only(left: 35,right: 35, top: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.access_time,
+                            color: Colors.amber,
+                          ),
+                          onPressed: () {
+                            homeCubit.bottomSheetListener(
+                                isOpenBar: calenderIcon);
+                          },
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            'Today\'s changes',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.3),
+                          ),
+                        ),
+                        // todo : add opacity animation to this part
+                        Visibility(
+                          visible: calenderIcon,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.calendar_today_outlined,
+                              color: Colors.pink,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-                      homeCubit.bottomSheetListener(isOpenBar: calenderIcon);
-                    },
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Today\'s changes',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.3),
-                    ),
-                  ),
-                  // todo : add opacity animation to this part
-                  Visibility(
-                    visible: calenderIcon,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.calendar_today_outlined,
-                        color: Colors.pink,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
+                    SizedBox(height: 10,),
+                    BottomSheetContent(),
+                  ],
+                ),
               ),
             ),
           ),
