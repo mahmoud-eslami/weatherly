@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -139,7 +138,6 @@ class _BottomNavigationState extends State<BottomNavigation>
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onHorizontalDragDown: (val) {
-        _scaleAnimationController..reverse();
         widget.homeCubit.bottomSheetListener(isOpenBar: false);
       },
       child: Align(
@@ -153,48 +151,54 @@ class _BottomNavigationState extends State<BottomNavigation>
               top: Radius.circular(50),
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.home_outlined,
-                    color: Colors.pink,
-                    size: 35,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 35,
+              right: 35,
+              top: 8.5,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.home_outlined,
+                      color: Colors.pink,
+                      size: 30,
+                    ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
                 ),
-              ),
-              ScaleTransition(
-                scale: _scaleTransition,
-                child: Container(
-                  width: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.pink,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
+                ScaleTransition(
+                  scale: _scaleTransition,
+                  child: Container(
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.pink,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              FadeTransition(
-                opacity: _fadeAnimation,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.calendar_today_outlined,
-                    color: Colors.pink,
-                    size: 30,
+                FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.calendar_today_outlined,
+                      color: Colors.pink,
+                    ),
+                    onPressed: () {},
                   ),
-                  onPressed: () {},
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
