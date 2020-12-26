@@ -60,10 +60,14 @@ class _HomeState extends State<Home> {
           }
           return Stack(
             children: [
-              HomeBodyWidget(
-                homeCubit: _homeCubit,
-                state: _homeDimsModel.showCalenderIconInBottomSheet,
-              ),
+              (state is BottomNavigationOpened)
+                  ? HomeBodyWidgetWithBottomNavigation(
+                      homeCubit: _homeCubit,
+                    )
+                  : HomeBodyWidget(
+                      homeCubit: _homeCubit,
+                      state: _homeDimsModel.showCalenderIconInBottomSheet,
+                    ),
               CustomAppBar(
                 height: _homeDimsModel.appBarHeight,
                 iconSize: _homeDimsModel.appBarIconSize,
@@ -90,6 +94,72 @@ class _HomeState extends State<Home> {
           );
         },
       ),
+    );
+  }
+}
+
+class HomeBodyWidgetWithBottomNavigation extends StatefulWidget {
+  final HomeCubit homeCubit;
+
+  const HomeBodyWidgetWithBottomNavigation({Key key, @required this.homeCubit})
+      : super(key: key);
+
+  @override
+  _HomeBodyWidgetWithBottomNavigationState createState() =>
+      _HomeBodyWidgetWithBottomNavigationState();
+}
+
+class _HomeBodyWidgetWithBottomNavigationState
+    extends State<HomeBodyWidgetWithBottomNavigation>
+    with TickerProviderStateMixin {
+  AnimationController _animationController;
+  Animation<double> _heightAnimation;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 600,
+      ),
+    )..forward();
+
+    _heightAnimation = Tween<double>(
+      begin: SizeConfig.heightMultiplier * 4,
+      end: SizeConfig.heightMultiplier * 70,
+    ).animate(_animationController);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: AnimatedContainer(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  40,
+                ),
+              ),
+            ),
+            height: _heightAnimation.value,
+            width: SizeConfig.widthMultiplier * 100,
+            duration: Duration(
+              milliseconds: 600,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
