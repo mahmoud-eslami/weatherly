@@ -239,7 +239,7 @@ class BottomSheetContent extends StatelessWidget {
                   ),
                   Image.asset(
                     'assets/images/cloud.png',
-                    width: SizeConfig.imageSizeMultiplier * 11,
+                    width: SizeConfig.imageSizeMultiplier * 8,
                   ),
                   SizedBox(
                     width: SizeConfig.widthMultiplier * 2,
@@ -267,8 +267,8 @@ class BottomSheetContent extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  width: 150,
-                  height: 170,
+                  width: SizeConfig.widthMultiplier * 38,
+                  height: SizeConfig.heightMultiplier * 27,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(20),
@@ -284,8 +284,8 @@ class BottomSheetContent extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  width: SizeConfig.widthMultiplier * 30,
-                  height: 140,
+                  width: SizeConfig.widthMultiplier * 38,
+                  height: SizeConfig.heightMultiplier * 20,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(20),
