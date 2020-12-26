@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:weatherly/home_dims_model.dart';
+import 'package:weatherly/size_conf.dart';
 
 part 'home_state.dart';
 
@@ -14,14 +15,14 @@ class HomeCubit extends Cubit<HomeState> {
       emit(
         BottomSheetOpened(
           homeDimsModel: HomeDimsModel(
-            appBarHeight: 80,
-            appBarTitleFontSize: 20,
-            appBarIconSize: 30,
-            hamburgerMenuHeight: 110,
+            appBarHeight: SizeConfig.heightMultiplier * 14,
+            appBarTitleFontSize: SizeConfig.textMultiplier * 3.5,
+            appBarIconSize: SizeConfig.imageSizeMultiplier * 10,
+            hamburgerMenuHeight: SizeConfig.heightMultiplier * 20,
             hamburgerMenuTileRadius: 40,
             dateTimeHeight: 0,
             dateTileRadius: 40,
-            bottomSheetHeight: 500,
+            bottomSheetHeight: SizeConfig.heightMultiplier * 75,
             showCalenderIconInBottomSheet: false,
             hamburgerMenuSpaceHeight: 0,
           ),
@@ -31,23 +32,23 @@ class HomeCubit extends Cubit<HomeState> {
       emit(
         BottomSheetOpened(
           homeDimsModel: HomeDimsModel(
-            appBarHeight: 120,
-            appBarTitleFontSize: 27,
-            appBarIconSize: 50,
-            hamburgerMenuHeight: 90,
+            appBarHeight: SizeConfig.heightMultiplier * 20,
+            appBarTitleFontSize: SizeConfig.textMultiplier * 4.5,
+            appBarIconSize: SizeConfig.imageSizeMultiplier * 12,
+            hamburgerMenuHeight: SizeConfig.heightMultiplier * 15,
             hamburgerMenuTileRadius: 0,
-            dateTimeHeight: 90,
+            dateTimeHeight: SizeConfig.heightMultiplier * 15,
             dateTileRadius: 40,
-            bottomSheetHeight: 80,
+            bottomSheetHeight: SizeConfig.heightMultiplier * 14,
             showCalenderIconInBottomSheet: true,
-            hamburgerMenuSpaceHeight: 90,
+            hamburgerMenuSpaceHeight: SizeConfig.heightMultiplier * 15,
           ),
         ),
       );
     }
   }
 
-  Future<void> bottomNavigationListener() async{
+  Future<void> bottomNavigationListener() async {
     print('calender');
     emit(BottomNavigationOpened());
   }

@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherly/cubit/home/home_cubit.dart';
 import 'package:weatherly/home_dims_model.dart';
+import 'package:weatherly/size_conf.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -19,16 +20,16 @@ class _HomeState extends State<Home> {
   void initState() {
     // initialize home dims
     _homeDimsModel = HomeDimsModel(
-      appBarHeight: 110,
-      appBarTitleFontSize: 27,
-      appBarIconSize: 50,
-      hamburgerMenuHeight: 90,
+      appBarHeight: SizeConfig.heightMultiplier * 20,
+      appBarTitleFontSize: SizeConfig.textMultiplier * 4.5,
+      appBarIconSize: SizeConfig.imageSizeMultiplier * 12,
+      hamburgerMenuHeight: SizeConfig.heightMultiplier * 15,
       hamburgerMenuTileRadius: 0,
-      dateTimeHeight: 90,
+      dateTimeHeight: SizeConfig.heightMultiplier * 15,
       dateTileRadius: 40,
-      bottomSheetHeight: 80,
+      bottomSheetHeight: SizeConfig.heightMultiplier * 14,
       showCalenderIconInBottomSheet: true,
-      hamburgerMenuSpaceHeight: 90,
+      hamburgerMenuSpaceHeight: SizeConfig.heightMultiplier * 15,
     );
 
     // initialize home bloc
@@ -204,13 +205,6 @@ class _BottomNavigationState extends State<BottomNavigation>
       ),
     );
   }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<HomeCubit>('homeCubit', widget.homeCubit));
-  }
 }
 
 class BottomSheetContent extends StatelessWidget {
@@ -226,10 +220,10 @@ class BottomSheetContent extends StatelessWidget {
 
   Widget dailyWeatherStatus() {
     return SizedBox(
-      height: 400,
       child: Stack(
         children: [
           ListView.separated(
+            shrinkWrap: true,
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(5.0),
               child: Row(
@@ -239,18 +233,23 @@ class BottomSheetContent extends StatelessWidget {
                     child: Text(
                       '${index + 10} : 00',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 12,
                       ),
                     ),
                   ),
                   Image.asset(
                     'assets/images/cloud.png',
-                    width: 30,
+                    width: SizeConfig.imageSizeMultiplier * 11,
                   ),
                   SizedBox(
-                    width: 15,
+                    width: SizeConfig.widthMultiplier * 2,
                   ),
-                  Text('12°'),
+                  Text(
+                    '12°',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -285,7 +284,7 @@ class BottomSheetContent extends StatelessWidget {
                   height: 20,
                 ),
                 Container(
-                  width: 150,
+                  width: SizeConfig.widthMultiplier * 30,
                   height: 140,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -314,24 +313,36 @@ class BottomSheetContent extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/cloud.png',
-              width: 50,
+              width: SizeConfig.imageSizeMultiplier * 10,
             ),
             SizedBox(
-              width: 10,
+              width: SizeConfig.widthMultiplier * 2,
             ),
-            Text('Rainy with short\nstorms.'),
+            Text(
+              'Rainy with short\nstorms.',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
         Row(
           children: [
             Image.asset(
               'assets/images/wind.png',
-              width: 50,
+              width: SizeConfig.imageSizeMultiplier * 10,
             ),
             SizedBox(
-              width: 10,
+              width: SizeConfig.widthMultiplier * 2,
             ),
-            Text('Wind En\n8 km/h'),
+            Text(
+              'Wind En\n8 km/h',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ],
@@ -363,13 +374,17 @@ class HomeBodyWidget extends StatelessWidget {
             children: [
               AnimatedPositioned(
                 duration: Duration(milliseconds: 600),
-                top: (state) ? 180 : 110,
-                left: (state) ? 0 : 45,
+                top: (state)
+                    ? SizeConfig.heightMultiplier * 27
+                    : SizeConfig.heightMultiplier * 15,
+                left: (state) ? 0 : SizeConfig.widthMultiplier * 15,
                 child: AnimatedDefaultTextStyle(
                   duration: Duration(milliseconds: 600),
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: (state) ? 60 : 50,
+                      fontSize: (state)
+                          ? SizeConfig.textMultiplier * 13
+                          : SizeConfig.textMultiplier * 9,
                       fontWeight: FontWeight.w200),
                   child: Text(
                     '19°',
@@ -378,7 +393,7 @@ class HomeBodyWidget extends StatelessWidget {
               ),
               AnimatedPositioned(
                 duration: Duration(milliseconds: 600),
-                top: 250,
+                top: SizeConfig.heightMultiplier * 41,
                 child: Visibility(
                   visible: state,
                   child: Text(
@@ -392,7 +407,9 @@ class HomeBodyWidget extends StatelessWidget {
               ),
               AnimatedPositioned(
                 duration: Duration(milliseconds: 600),
-                top: (state) ? 290 : 121,
+                top: (state)
+                    ? SizeConfig.heightMultiplier * 45
+                    : SizeConfig.heightMultiplier * 17,
                 child: Image.asset(
                   'assets/images/rainy.png',
                   width: 40,
@@ -400,7 +417,7 @@ class HomeBodyWidget extends StatelessWidget {
               ),
               AnimatedPositioned(
                 duration: Duration(milliseconds: 600),
-                top: 540,
+                top: SizeConfig.heightMultiplier * 75,
                 child: Text(
                   'Naples',
                   style: TextStyle(
@@ -410,7 +427,8 @@ class HomeBodyWidget extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 160,
+                top: SizeConfig.heightMultiplier * 25,
+                left: SizeConfig.widthMultiplier * 1,
                 child: Transform(
                   alignment: Alignment.center,
                   transform: Matrix4.rotationY(pi),
@@ -464,7 +482,7 @@ class BottomSheet extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.only(left: 35, right: 35, top: 20),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -482,7 +500,7 @@ class BottomSheet extends StatelessWidget {
                           },
                         ),
                         SizedBox(
-                          width: 10,
+                          width: SizeConfig.widthMultiplier * 1,
                         ),
                         Expanded(
                           child: Text(
