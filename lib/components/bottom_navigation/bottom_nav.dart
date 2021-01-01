@@ -58,6 +58,13 @@ class _BottomNavigationState extends State<BottomNavigation>
           width: size.width,
           height: 80,
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.deepPurpleAccent.withOpacity(.2),
+                blurRadius: 20,
+                spreadRadius: 3,
+              )
+            ],
             color: Colors.white,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(50),

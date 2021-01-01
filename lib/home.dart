@@ -126,8 +126,13 @@ class _HomeBodyWidgetWithBottomNavigationState
 
     _heightAnimation = Tween<double>(
       begin: SizeConfig.heightMultiplier * 4,
-      end: SizeConfig.heightMultiplier * 70,
-    ).animate(_animationController);
+      end: SizeConfig.heightMultiplier * 69,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Interval(0, 1, curve: Curves.easeOut),
+      ),
+    );
     super.initState();
   }
 
@@ -139,27 +144,26 @@ class _HomeBodyWidgetWithBottomNavigationState
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: AnimatedContainer(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  40,
-                ),
+    return SizeTransition(
+      sizeFactor: _heightAnimation,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: AnimatedContainer(
+          duration: Duration(
+            milliseconds: 600,
+          ),
+          height: _heightAnimation.value,
+          width: SizeConfig.widthMultiplier * 100,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                40,
               ),
-            ),
-            height: _heightAnimation.value,
-            width: SizeConfig.widthMultiplier * 100,
-            duration: Duration(
-              milliseconds: 600,
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
