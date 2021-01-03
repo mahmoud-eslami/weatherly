@@ -50,6 +50,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> bottomNavigationListener() async {
     print('calender');
-    emit(BottomNavigationOpened());
+    emit(BottomNavigationOpened(height: SizeConfig.heightMultiplier * 4));
+    await Future.delayed(Duration(milliseconds: 100));
+    emit(BottomNavigationOpened(height: SizeConfig.heightMultiplier * 69));
   }
 }

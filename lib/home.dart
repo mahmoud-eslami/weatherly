@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
               (state is BottomNavigationOpened)
                   ? HomeBodyWidgetWithBottomNavigation(
                       homeCubit: _homeCubit,
+                      height: state.height,
                     )
                   : HomeBodyWidget(
                       homeCubit: _homeCubit,
@@ -100,9 +101,13 @@ class _HomeState extends State<Home> {
 
 class HomeBodyWidgetWithBottomNavigation extends StatefulWidget {
   final HomeCubit homeCubit;
+  final double height;
 
-  const HomeBodyWidgetWithBottomNavigation({Key key, @required this.homeCubit})
-      : super(key: key);
+  const HomeBodyWidgetWithBottomNavigation({
+    Key key,
+    @required this.homeCubit,
+    @required this.height,
+  }) : super(key: key);
 
   @override
   _HomeBodyWidgetWithBottomNavigationState createState() =>
@@ -110,56 +115,33 @@ class HomeBodyWidgetWithBottomNavigation extends StatefulWidget {
 }
 
 class _HomeBodyWidgetWithBottomNavigationState
-    extends State<HomeBodyWidgetWithBottomNavigation>
-    with TickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _heightAnimation;
-
+    extends State<HomeBodyWidgetWithBottomNavigation> {
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        milliseconds: 600,
-      ),
-    )..forward();
-
-    _heightAnimation = Tween<double>(
-      begin: SizeConfig.heightMultiplier * 4,
-      end: SizeConfig.heightMultiplier * 69,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(0, 1, curve: Curves.easeOut),
-      ),
-    );
     super.initState();
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-      sizeFactor: _heightAnimation,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: AnimatedContainer(
-          duration: Duration(
-            milliseconds: 600,
-          ),
-          height: _heightAnimation.value,
-          width: SizeConfig.widthMultiplier * 100,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                40,
-              ),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: AnimatedContainer(
+        curve: Curves.ease,
+        duration: Duration(
+          milliseconds: 600,
+        ),
+        height: widget.height,
+        width: SizeConfig.widthMultiplier * 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              40,
             ),
           ),
         ),

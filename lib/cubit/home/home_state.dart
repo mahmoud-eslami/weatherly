@@ -24,8 +24,15 @@ class BottomSheetOpened extends HomeState {
 }
 
 class BottomNavigationOpened extends HomeState {
+  final double height;
+
+  BottomNavigationOpened({@required this.height});
+
   @override
   String toString() {
-    return 'BottomNavigationOpened{}';
+    return 'BottomNavigationOpened{height: $height}';
   }
+
+  @override
+  List<Object> get props => [height];
 }
