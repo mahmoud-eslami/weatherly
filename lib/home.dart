@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherly/components/app_bar/app_bar.dart';
 import 'package:weatherly/components/bottom_navigation/bottom_nav.dart';
+import 'package:weatherly/components/bottom_navigation/opened_bottom_nav.dart';
 import 'package:weatherly/components/bottom_sheet/bottom_sheet.dart';
 import 'package:weatherly/components/hamburger_menu/hamburger_menu.dart';
 import 'package:weatherly/cubit/home/home_cubit.dart';
@@ -198,6 +199,7 @@ class _HomeBodyWidgetWithBottomNavigationState
             ),
           ),
         ),
+        child: OpenedBottomNav(),
       ),
     );
   }
