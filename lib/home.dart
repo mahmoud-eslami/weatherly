@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Colors.deepOrangeAccent,
       body: BlocConsumer(
         cubit: _homeCubit,
         listener: (context, state) {},
@@ -60,6 +60,10 @@ class _HomeState extends State<Home> {
           }
           return Stack(
             children: [
+              if (state is BottomNavigationOpened)
+                SunSetWidget(
+                  position: state.sunsetPosition,
+                ),
               (state is BottomNavigationOpened)
                   ? HomeBodyWidgetWithBottomNavigation(
                       homeCubit: _homeCubit,
@@ -94,6 +98,55 @@ class _HomeState extends State<Home> {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class SunSetWidget extends StatelessWidget {
+  final double position;
+
+  const SunSetWidget({Key key, @required this.position}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedPositioned(
+      left: SizeConfig.widthMultiplier * 14,
+      top: position,
+      duration: Duration(
+        milliseconds: 600,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Image.asset(
+            'assets/images/sunset.png',
+            width: SizeConfig.imageSizeMultiplier * 13,
+          ),
+          SizedBox(
+            width: SizeConfig.widthMultiplier * 2,
+          ),
+          Text(
+            '18:20',
+            style: TextStyle(
+                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            width: SizeConfig.widthMultiplier * 10,
+          ),
+          Image.asset(
+            'assets/images/sunrise.png',
+            width: SizeConfig.imageSizeMultiplier * 13,
+          ),
+          SizedBox(
+            width: SizeConfig.widthMultiplier * 2,
+          ),
+          Text(
+            '06:20',
+            style: TextStyle(
+                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }

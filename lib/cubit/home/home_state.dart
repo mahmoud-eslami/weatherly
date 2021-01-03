@@ -25,8 +25,10 @@ class BottomSheetOpened extends HomeState {
 
 class BottomNavigationOpened extends HomeState {
   final double height;
+  final double sunsetPosition;
 
-  BottomNavigationOpened({@required this.height});
+  BottomNavigationOpened(
+      {@required this.sunsetPosition, @required this.height});
 
   @override
   String toString() {

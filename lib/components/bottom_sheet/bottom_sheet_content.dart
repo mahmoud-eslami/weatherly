@@ -48,7 +48,7 @@ class BottomSheetContent extends StatelessWidget {
               ),
             ),
             separatorBuilder: (context, index) => Container(
-              height: .5,
+              height: .19,
               color: Colors.grey,
             ),
             itemCount: 8,

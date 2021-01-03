@@ -10,8 +10,8 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   Future<void> bottomSheetListener({@required bool isOpenBar}) async {
-    print('clock');
     if (isOpenBar) {
+      print('clock');
       emit(
         BottomSheetOpened(
           homeDimsModel: HomeDimsModel(
@@ -50,8 +50,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> bottomNavigationListener() async {
     print('calender');
-    emit(BottomNavigationOpened(height: SizeConfig.heightMultiplier * 4));
+    emit(BottomNavigationOpened(
+        height: SizeConfig.heightMultiplier * 4,
+        sunsetPosition: SizeConfig.heightMultiplier * 25));
     await Future.delayed(Duration(milliseconds: 100));
-    emit(BottomNavigationOpened(height: SizeConfig.heightMultiplier * 69));
+    emit(BottomNavigationOpened(
+        height: SizeConfig.heightMultiplier * 69,
+        sunsetPosition: SizeConfig.heightMultiplier * 22));
   }
 }
