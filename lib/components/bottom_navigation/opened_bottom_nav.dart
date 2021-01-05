@@ -10,7 +10,7 @@ class OpenedBottomNav extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 3,
         ),
         WeatherStateTile(
-          location: 'Armenia',
+          location: 'Tehran',
           state: '2°',
           img: 'assets/images/cloudy.png',
         ),
@@ -34,7 +34,7 @@ class OpenedBottomNav extends StatelessWidget {
           height: SizeConfig.heightMultiplier * 3,
         ),
         WeatherStateTile(
-          location: 'USA    ',
+          location: 'Armenia',
           state: '0°',
           img: 'assets/images/snowy.png',
         ),

@@ -21,7 +21,7 @@ class CustomBottomSheet extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
-        onVerticalDragDown: (value) {
+        onTap: () {
           if (height > 200.0) {
             homeCubit.bottomSheetListener(isOpenBar: calenderIcon);
           }
