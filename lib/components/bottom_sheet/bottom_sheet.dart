@@ -79,7 +79,8 @@ class CustomBottomSheet extends StatelessWidget {
                               color: Colors.pink,
                             ),
                             onPressed: () {
-                              homeCubit.bottomNavigationListener();
+                              homeCubit.bottomNavigationListener(
+                                  wantsToOpenBn: true);
                             },
                           ),
                         ),

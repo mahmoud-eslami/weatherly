@@ -48,14 +48,22 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> bottomNavigationListener() async {
-    print('calender');
-    emit(BottomNavigationOpened(
-        height: SizeConfig.heightMultiplier * 4,
-        sunsetPosition: SizeConfig.heightMultiplier * 25));
-    await Future.delayed(Duration(milliseconds: 100));
-    emit(BottomNavigationOpened(
-        height: SizeConfig.heightMultiplier * 69,
-        sunsetPosition: SizeConfig.heightMultiplier * 22));
+  Future<void> bottomNavigationListener({@required bool wantsToOpenBn}) async {
+    if (wantsToOpenBn) {
+      emit(BottomNavigationStateChanged(
+          height: SizeConfig.heightMultiplier,
+          sunsetPosition: SizeConfig.heightMultiplier * 22));
+      print('calender');
+      await Future.delayed(Duration(milliseconds: 100));
+      emit(BottomNavigationStateChanged(
+          height: SizeConfig.heightMultiplier * 69,
+          sunsetPosition: SizeConfig.heightMultiplier * 22));
+    } else {
+      print("asdasd");
+
+      emit(BottomNavigationStateChanged(
+          height: SizeConfig.heightMultiplier * 77,
+          sunsetPosition: SizeConfig.heightMultiplier * 22));
+    }
   }
 }

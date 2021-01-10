@@ -114,7 +114,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                     color: Colors.pink,
                   ),
                   onPressed: () {
-                    _homeCubit.bottomSheetListener(isOpenBar: false);
+                    _homeCubit.bottomNavigationListener(wantsToOpenBn: true);
                   },
                 ),
               ),

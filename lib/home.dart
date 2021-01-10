@@ -61,11 +61,11 @@ class _HomeState extends State<Home> {
           }
           return Stack(
             children: [
-              if (state is BottomNavigationOpened)
+              if (state is BottomNavigationStateChanged)
                 SunSetWidget(
                   position: state.sunsetPosition,
                 ),
-              (state is BottomNavigationOpened)
+              (state is BottomNavigationStateChanged)
                   ? HomeBodyWidgetWithBottomNavigation(
                       homeCubit: _homeCubit,
                       height: state.height,
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
                 dateTileRadius: _homeDimsModel.dateTileRadius,
                 dateTimeHeight: _homeDimsModel.dateTimeHeight,
               ),
-              (state is BottomNavigationOpened)
+              (state is BottomNavigationStateChanged)
                   ? BottomNavigation(
                       homeCubit: _homeCubit,
                     )
@@ -199,7 +199,7 @@ class _HomeBodyWidgetWithBottomNavigationState
             ),
           ),
         ),
-        child: OpenedBottomNav(),
+        child: SingleChildScrollView(child: OpenedBottomNav()),
       ),
     );
   }

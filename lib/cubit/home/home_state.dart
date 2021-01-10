@@ -23,11 +23,11 @@ class BottomSheetOpened extends HomeState {
   List<Object> get props => [homeDimsModel];
 }
 
-class BottomNavigationOpened extends HomeState {
+class BottomNavigationStateChanged extends HomeState {
   final double height;
   final double sunsetPosition;
 
-  BottomNavigationOpened(
+  BottomNavigationStateChanged(
       {@required this.sunsetPosition, @required this.height});
 
   @override
@@ -36,5 +36,5 @@ class BottomNavigationOpened extends HomeState {
   }
 
   @override
-  List<Object> get props => [height];
+  List<Object> get props => [height, sunsetPosition];
 }
