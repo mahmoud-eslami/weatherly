@@ -11,7 +11,6 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> bottomSheetListener({@required bool isOpenBar}) async {
     if (isOpenBar) {
-      print('clock');
       emit(
         BottomSheetOpened(
           homeDimsModel: HomeDimsModel(
@@ -48,22 +47,39 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future<void> bottomNavigationListener({@required bool wantsToOpenBn}) async {
-    if (wantsToOpenBn) {
+  Future<void> bottomNavigationListener({@required bool isOpenAction}) async {
+    if (isOpenAction) {
       emit(BottomNavigationStateChanged(
           height: SizeConfig.heightMultiplier,
-          sunsetPosition: SizeConfig.heightMultiplier * 22));
-      print('calender');
+          sunsetPosition: SizeConfig.heightMultiplier * 27));
       await Future.delayed(Duration(milliseconds: 100));
       emit(BottomNavigationStateChanged(
           height: SizeConfig.heightMultiplier * 69,
           sunsetPosition: SizeConfig.heightMultiplier * 22));
     } else {
-      print("asdasd");
-
       emit(BottomNavigationStateChanged(
-          height: SizeConfig.heightMultiplier * 77,
-          sunsetPosition: SizeConfig.heightMultiplier * 22));
+          height: SizeConfig.heightMultiplier,
+          sunsetPosition: SizeConfig.heightMultiplier * 27));
+      await Future.delayed(Duration(milliseconds: 400));
+      emit(
+        BottomSheetOpened(
+          homeDimsModel: HomeDimsModel(
+            appBarHeight: SizeConfig.heightMultiplier * 20,
+            appBarTitleFontSize: SizeConfig.textMultiplier * 4.5,
+            appBarIconSize: SizeConfig.imageSizeMultiplier * 12,
+            hamburgerMenuHeight: SizeConfig.heightMultiplier * 15,
+            hamburgerMenuTileRadius: 0,
+            dateTimeHeight: SizeConfig.heightMultiplier * 15,
+            dateTileRadius: 40,
+            bottomSheetHeight: SizeConfig.heightMultiplier * 14,
+            showCalenderIconInBottomSheet: true,
+            hamburgerMenuSpaceHeight: SizeConfig.heightMultiplier * 15,
+          ),
+        ),
+      );
+      // emit(BottomNavigationStateChanged(
+      //     height: SizeConfig.heightMultiplier * 69,
+      //     sunsetPosition: SizeConfig.heightMultiplier * 22));
     }
   }
 }

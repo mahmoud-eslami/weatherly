@@ -28,7 +28,7 @@ class CustomBottomSheet extends StatelessWidget {
         },
         child: AnimatedContainer(
           duration: Duration(milliseconds: 800),
-          curve: Curves.fastOutSlowIn,
+          curve: Curves.ease,
           width: size.width,
           height: height,
           decoration: BoxDecoration(
@@ -80,7 +80,7 @@ class CustomBottomSheet extends StatelessWidget {
                             ),
                             onPressed: () {
                               homeCubit.bottomNavigationListener(
-                                  wantsToOpenBn: true);
+                                  isOpenAction: true);
                             },
                           ),
                         ),

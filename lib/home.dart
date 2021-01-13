@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF065A82),
+      backgroundColor: Color(0xFF5a189a),
       body: BlocConsumer(
         cubit: _homeCubit,
         listener: (context, state) {},

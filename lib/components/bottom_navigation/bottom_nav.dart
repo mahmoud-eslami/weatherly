@@ -12,7 +12,6 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation>
     with TickerProviderStateMixin {
-  HomeCubit _homeCubit;
   AnimationController _scaleAnimationController;
   AnimationController _animationController;
   Animation<double> _fadeAnimation;
@@ -20,8 +19,6 @@ class _BottomNavigationState extends State<BottomNavigation>
 
   @override
   void initState() {
-    _homeCubit = HomeCubit();
-
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 600),
@@ -36,7 +33,7 @@ class _BottomNavigationState extends State<BottomNavigation>
     _scaleTransition = Tween<double>(begin: 0.2, end: 1.0).animate(
       CurvedAnimation(
         parent: _scaleAnimationController,
-        curve: Interval(0, 1, curve: Curves.easeOut),
+        curve: Interval(0, 1, curve: Curves.ease),
       ),
     );
     super.initState();
@@ -44,7 +41,6 @@ class _BottomNavigationState extends State<BottomNavigation>
 
   @override
   void dispose() {
-    _homeCubit.close();
     _scaleAnimationController.dispose();
     super.dispose();
   }
@@ -87,7 +83,10 @@ class _BottomNavigationState extends State<BottomNavigation>
                     color: Colors.pink,
                     size: 30,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    widget.homeCubit
+                      ..bottomNavigationListener(isOpenAction: false);
+                  },
                 ),
               ),
               ScaleTransition(
@@ -113,9 +112,7 @@ class _BottomNavigationState extends State<BottomNavigation>
                     Icons.calendar_today_outlined,
                     color: Colors.pink,
                   ),
-                  onPressed: () {
-                    _homeCubit.bottomNavigationListener(wantsToOpenBn: true);
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],
